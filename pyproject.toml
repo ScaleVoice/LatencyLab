@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "latencylab"
+version = "0.1.0"
+description = ""
+authors = ["Pavel Kral <pavel@pavelkral.eu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = {extras = ["all"], version = "^0.11.0"}
+openai = "^1.14.3"
+pre-commit = "^3.7.0"
+pytest = "^8.1.1"
+jupyter = "^1.0.0"
+pandas = "^2.2.1"
+seaborn = "^0.13.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+latencylab = 'latencylab.main:app'
+
+[tool.ruff]
+line-length = 150

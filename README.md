@@ -52,6 +52,7 @@ It's important to note that these findings are preliminary and subject to furthe
   * Azure usually delivers chunks in batches of 30, whereas OpenAI tends to deliver chunks more continuously.
 * ❌ Regarding responsiveness, Azure's [GPT-4 **frequently fails**](misc/gpt_4_num_failures.png) to respond in time, in contrast to [GPT-3.5, which **never fails**](misc/gpt_3_num_failures.png).
 * 🐌 On the aspect of speed, [**GPT-3.5 is observed to be faster**](misc/gpt_3_total_request_time_seconds_bar_median.png) than [GPT-4](misc/gpt_4_total_request_time_seconds_bar_median.png), according to the current data.
+* 📝 Time to first token [seems to be constant](misc/prompt_size_vs_first_token_time_seconds_gpt_3.png), with various prompt sizes
 
 These results are part of a continuous effort to understand and improve API performance, and feedback or additional insights are welcome.
 
@@ -60,6 +61,8 @@ These results are part of a continuous effort to understand and improve API perf
 ![](docs/gpt_4_chunks_timing_line.png)
 
 ![](docs/gpt_4_first_token_time_seconds_bar_mean.png)
+
+![](misc/prompt_size_vs_first_token_time_seconds_gpt_3.png)
 
 Maximum timeout for each request was set to **30 seconds** and test was conduced between **9:00 and 13:00 UTC** from GCP instance in France.  
 
@@ -125,9 +128,9 @@ To run the benchmark you will need following values
 
 ## CLI
 ```
-latencylab run all-providers --help                                                                                                                                        
+latencylab latency all-providers --help                                                                                                                                        
                                                                                                                                                                                                            
- Usage: latencylab run all-providers [OPTIONS] OPENAI_KEY AZURE_KEY                                                                                                                                        
+ Usage: latencylab latency all-providers [OPTIONS] OPENAI_KEY AZURE_KEY                                                                                                                                        
                                      AZURE_ENDPOINT AZURE_DEPLOYMENT_GPT35                                                                                                                                 
                                      AZURE_DEPLOYMENT_GPT4_TURBO                                                                                                                                           
                                      OUTPUT_CSV_FILE                                                                                                                                                       
@@ -150,7 +153,7 @@ latencylab run all-providers --help
 Run the benchmark with following command, output will be stored in `out.csv`
 
 ```
-latencylab run all-providers \
+latencylab latency all-providers \
   <openai_api_secret> \
   <azure_api_secret> \
   <azure_api_endpoint> \

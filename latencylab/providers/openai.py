@@ -3,7 +3,7 @@ from time import time
 
 from openai import OpenAI
 
-from latencylab.providers.base import BaseProvider, ProviderResult, text_contains_sentence_end
+from latencylab.providers.base import BaseProvider, ProviderResult, text_contains_sentence_end, DEFAULT_INPUT_TEXT_CHARS
 
 
 class BaseOpenAIProvider(BaseProvider, ABC):
@@ -62,6 +62,7 @@ class BaseOpenAIProvider(BaseProvider, ABC):
         return ProviderResult(
             success=True,
             provider_name=str(self),
+            input_characters=len(self.input_text),
             output_characters=len(output_content),
             first_token_time_seconds=first_token_time_seconds,
             first_sentence_time_seconds=first_sentence_time_seconds,
@@ -73,8 +74,9 @@ class BaseOpenAIProvider(BaseProvider, ABC):
 class GPT35Provider(BaseOpenAIProvider):
     model_name = "gpt-3.5-turbo-0613"
 
-    def __init__(self, openai_key):
+    def __init__(self, openai_key: str, input_text_chars: int = DEFAULT_INPUT_TEXT_CHARS):
         self.client = OpenAI(api_key=openai_key)
+        self.input_text_chars = input_text_chars
 
     def __str__(self) -> str:
         return f"OpenAI_{self.model_name}"
@@ -83,8 +85,9 @@ class GPT35Provider(BaseOpenAIProvider):
 class GPT350125Provider(BaseOpenAIProvider):
     model_name = "gpt-3.5-turbo-0125"
 
-    def __init__(self, openai_key):
+    def __init__(self, openai_key: str, input_text_chars: int = DEFAULT_INPUT_TEXT_CHARS):
         self.client = OpenAI(api_key=openai_key)
+        self.input_text_chars = input_text_chars
 
     def __str__(self) -> str:
         return f"OpenAI_{self.model_name}"
@@ -93,8 +96,9 @@ class GPT350125Provider(BaseOpenAIProvider):
 class GPT4TurboProvider(BaseOpenAIProvider):
     model_name = "gpt-4-1106-preview"
 
-    def __init__(self, openai_key):
+    def __init__(self, openai_key: str, input_text_chars: int = DEFAULT_INPUT_TEXT_CHARS):
         self.client = OpenAI(api_key=openai_key)
+        self.input_text_chars = input_text_chars
 
     def __str__(self) -> str:
         return f"OpenAI_{self.model_name}"
@@ -103,8 +107,9 @@ class GPT4TurboProvider(BaseOpenAIProvider):
 class GPT4Turbo0125Provider(BaseOpenAIProvider):
     model_name = "gpt-4-0125-preview"
 
-    def __init__(self, openai_key):
+    def __init__(self, openai_key: str, input_text_chars: int = DEFAULT_INPUT_TEXT_CHARS):
         self.client = OpenAI(api_key=openai_key)
+        self.input_text_chars = input_text_chars
 
     def __str__(self) -> str:
         return f"OpenAI_{self.model_name}"
